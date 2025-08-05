@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/profile/domain/repo/user_profile_repo.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/profile_states.dart';
+import 'package:matrix_edge_website/features/storage/domain/storage_repo.dart';
 
 class UserProfileCubit extends Cubit<UserProfileState> {
   final UserProfileRepo userProfileRepo;
+  final StorageRepo storageRepo;
 
-  UserProfileCubit({required this.userProfileRepo})
+  UserProfileCubit({required this.userProfileRepo, required this.storageRepo})
     : super(UserProfileInitial());
 
   Future<void> fetchUserProfile(String uid) async {
@@ -23,7 +27,12 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     }
   }
 
-  Future<void> updateProfile({required String uid, String? newBio}) async {
+  Future<void> updateProfile({
+    required String uid,
+    String? newBio,
+    Uint8List? imageWebBytes,
+    String? imageMobilePath,
+  }) async {
     emit(UserProfileLoading());
 
     try {
@@ -34,8 +43,30 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         return;
       }
 
+      String? imageDownloadUrl;
+
+      if (imageWebBytes != null || imageMobilePath != null) {
+        if (imageMobilePath != null) {
+          imageDownloadUrl = await storageRepo.uploadProfileImageMobile(
+            imageMobilePath,
+            uid,
+          );
+        } else if (imageWebBytes != null) {
+          imageDownloadUrl = await storageRepo.uploadProfileImageWeb(
+            imageWebBytes,
+            uid,
+          );
+        }
+
+        if (imageDownloadUrl == null) {
+          emit(UserProfileError("Unable to upload image."));
+          return;
+        }
+      }
+
       final updatedProfile = currentUser.copyWith(
         newBio: newBio ?? currentUser.bio,
+        newProfileImageUrl: imageDownloadUrl ?? currentUser.profileImageUrl,
       );
 
       await userProfileRepo.updateProfile(updatedProfile);

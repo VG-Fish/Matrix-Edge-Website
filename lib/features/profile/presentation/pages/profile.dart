@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/auth/domain/entities/user.dart';
@@ -68,21 +69,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 25),
 
                 // Profile picture
-                Container(
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(12),
+                CachedNetworkImage(
+                  imageUrl: user.profileImageUrl,
+
+                  // Loading image
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+
+                  // Loaded image
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  height: 120,
-                  width: 120,
-                  padding: EdgeInsets.all(25),
-                  child: Center(
-                    child: Icon(
+
+                  // Error in loading image
+                  errorWidget: (context, url, error) {
+                    print("Cached image: $url, $error");
+
+                    return Icon(
                       Icons.person,
                       size: 72,
                       color: theme.colorScheme.primary,
-                    ),
-                  ),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 25),

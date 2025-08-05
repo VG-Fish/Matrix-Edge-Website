@@ -7,11 +7,13 @@ import "package:matrix_edge_website/features/auth/presentation/cubits/auth_state
 import "package:matrix_edge_website/features/auth/presentation/pages/auth.dart";
 import "package:matrix_edge_website/features/profile/data/firebase_profile_repo.dart";
 import "package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart";
+import "package:matrix_edge_website/features/storage/data/firebase_storage_repo.dart";
 import "package:matrix_edge_website/themes/light_mode.dart";
 
 class MatrixEdgeApp extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
   final userProfileRepo = FirebaseUserProfileRepo();
+  final storageRepo = FirebaseStorageRepo();
 
   MatrixEdgeApp({super.key});
 
@@ -24,8 +26,10 @@ class MatrixEdgeApp extends StatelessWidget {
         ),
 
         BlocProvider<UserProfileCubit>(
-          create: (context) =>
-              UserProfileCubit(userProfileRepo: userProfileRepo),
+          create: (context) => UserProfileCubit(
+            userProfileRepo: userProfileRepo,
+            storageRepo: storageRepo,
+          ),
         ),
       ],
       child: MaterialApp(
