@@ -1,21 +1,33 @@
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:matrix_edge_website/features/auth/data/firebase_auth_repo.dart";
-import "package:matrix_edge_website/features/post/presentation/pages/home.dart";
+import "package:matrix_edge_website/features/home/presentation/pages/home.dart";
 import "package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit.dart";
 import "package:matrix_edge_website/features/auth/presentation/cubits/auth_states.dart";
 import "package:matrix_edge_website/features/auth/presentation/pages/auth.dart";
+import "package:matrix_edge_website/features/profile/data/firebase_profile_repo.dart";
+import "package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart";
 import "package:matrix_edge_website/themes/light_mode.dart";
 
 class MatrixEdgeApp extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
+  final userProfileRepo = FirebaseUserProfileRepo();
 
   MatrixEdgeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
+        ),
+
+        BlocProvider<UserProfileCubit>(
+          create: (context) =>
+              UserProfileCubit(userProfileRepo: userProfileRepo),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightMode,
