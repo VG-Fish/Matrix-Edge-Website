@@ -17,7 +17,19 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final bioTextController = TextEditingController();
 
-  void updateProfile() async {
+  @override
+  void initState() {
+    super.initState();
+    bioTextController.text = widget.user.bio;
+  }
+
+  @override
+  void dispose() {
+    bioTextController.dispose();
+    super.dispose();
+  }
+
+  void updateProfile() {
     final userProfileCubit = context.read<UserProfileCubit>();
 
     if (bioTextController.text.isNotEmpty) {
@@ -68,7 +80,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text("Uploading..."), CircularProgressIndicator()],
+                children: [
+                  Text("Uploading..."),
+                  const SizedBox(height: 10),
+                  CircularProgressIndicator(),
+                ],
               ),
             ),
           );
@@ -79,6 +95,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
       listener: (context, userProfileState) {
         if (userProfileState is UserProfileLoaded) {
           Navigator.pop(context);
+        } else if (userProfileState is UserProfileError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Failed to update profile. Please try again."),
+            ),
+          );
         }
       },
     );

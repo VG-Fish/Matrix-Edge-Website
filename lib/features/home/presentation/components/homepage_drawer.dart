@@ -35,11 +35,12 @@ class HomepageDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
 
                   final user = context.read<AuthCubit>().currentUser;
+                  if (user == null) return;
 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfilePage(uid: user!.uid),
+                      builder: (context) => ProfilePage(uid: user.uid),
                     ),
                   );
                 },

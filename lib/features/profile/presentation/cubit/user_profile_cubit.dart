@@ -30,7 +30,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       final currentUser = await userProfileRepo.fetchUserProfile(uid);
 
       if (currentUser == null) {
-        emit(UserProfileError("User not found"));
+        emit(UserProfileError("User not found."));
         return;
       }
 

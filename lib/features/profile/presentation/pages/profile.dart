@@ -42,15 +42,16 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text(user.email),
               foregroundColor: theme.colorScheme.primary,
               actions: [
-                IconButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditProfilePage(user: user),
+                if (currentUser?.uid == user.uid)
+                  IconButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfilePage(user: user),
+                      ),
                     ),
+                    icon: const Icon(Icons.edit),
                   ),
-                  icon: const Icon(Icons.edit),
-                ),
               ],
             ),
 

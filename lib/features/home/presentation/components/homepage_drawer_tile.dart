@@ -21,7 +21,7 @@ class HomepageDrawerTile extends StatelessWidget {
         title,
         style: TextStyle(color: theme.colorScheme.inversePrimary),
       ),
-      leading: Icon(icon, color: theme.colorScheme.primary),
+      leading: Icon(icon, color: theme.colorScheme.onSurface),
       onTap: onTap,
     );
   }

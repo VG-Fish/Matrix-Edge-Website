@@ -22,6 +22,7 @@ class UserProfile extends MatrixEdgeUser {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       "uid": uid,
