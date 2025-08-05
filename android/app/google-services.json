@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "823590010110",
+    "project_id": "matrix-edge-demo-website",
+    "storage_bucket": "matrix-edge-demo-website.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823590010110:android:82851a32a9c927988979af",
+        "android_client_info": {
+          "package_name": "com.example.website"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbW29v-3pgeN3FiAbfeMDBbbyIT532MK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
