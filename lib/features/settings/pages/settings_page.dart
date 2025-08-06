@@ -15,14 +15,19 @@ class SettingsPage extends StatelessWidget {
 
     return ConstrainedScaffold(
       appBar: AppBar(title: const Text("Settings")),
-      body: ListTile(
-        title: Text("Dark mode"),
-        trailing: CupertinoSwitch(
-          value: isDarkMode,
-          onChanged: (_) {
-            themeCubit.toggleTheme();
-          },
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Text("Dark mode"),
+            trailing: CupertinoSwitch(
+              value: isDarkMode,
+              onChanged: (_) {
+                themeCubit.toggleTheme();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

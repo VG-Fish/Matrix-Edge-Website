@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -286,14 +287,26 @@ class _PostTileState extends State<PostTile> {
                         ),
                       )
                     : const Icon(Icons.person),
+
+                const SizedBox(width: 10),
+
                 Text(
                   "${widget.post.userName}: ",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                Text(
-                  "Information: ${widget.post.text}\nAmount: \$${widget.post.amount}",
+
+                const SizedBox(width: 10),
+
+                Flexible(
+                  child: Text(
+                    "Information (preview):\n${widget.post.text.substring(0, min(widget.post.text.length, 20))}",
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
+                  ),
                 ),
+
                 Spacer(),
+
                 if (isOwnPost)
                   IconButton(onPressed: showOptions, icon: Icon(Icons.delete)),
               ],

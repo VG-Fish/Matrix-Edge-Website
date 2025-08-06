@@ -71,7 +71,7 @@ class _UploadPostsPageState extends State<UploadPostsPage> {
         amountTextController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Both image and information are required"),
+          content: Text("You must enter image, information, and/or price."),
         ),
       );
       return;
