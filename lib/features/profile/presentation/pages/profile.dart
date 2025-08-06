@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
           return ConstrainedScaffold(
             appBar: AppBar(
-              title: Text(user.email),
+              title: Text(user.name),
               foregroundColor: theme.colorScheme.primary,
               actions: [
                 if (currentUser?.uid == user.uid)
@@ -111,14 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 // Bio
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    "Bio: ",
-                    style: TextStyle(color: theme.colorScheme.inversePrimary),
-                  ),
-                ),
-
-                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 25,
                     vertical: 5,
@@ -127,13 +119,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 // Posts
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    "Posts: ",
-                    style: TextStyle(color: theme.colorScheme.inversePrimary),
-                  ),
-                ),
+                const SizedBox(height: 10),
+                const Divider(height: 5),
+                const SizedBox(height: 10),
 
                 BlocBuilder<PostCubit, PostStates>(
                   builder: (context, postState) {

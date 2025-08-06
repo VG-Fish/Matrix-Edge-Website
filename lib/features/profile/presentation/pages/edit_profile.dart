@@ -91,79 +91,83 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          spacing: 10,
-          children: [
-            Center(
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: (!kIsWeb && imagePickedFile != null)
-                    ? Image.file(
-                        File(imagePickedFile!.path!),
-                        fit: BoxFit.cover,
-                      )
-                    : (kIsWeb && webImage != null)
-                    ? Image.memory(webImage!, fit: BoxFit.cover)
-                    : CachedNetworkImage(
-                        imageUrl: widget.user.profileImageUrl,
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            spacing: 10,
+            children: [
+              Center(
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: (!kIsWeb && imagePickedFile != null)
+                      ? Image.file(
+                          File(imagePickedFile!.path!),
+                          fit: BoxFit.cover,
+                        )
+                      : (kIsWeb && webImage != null)
+                      ? Image.memory(webImage!, fit: BoxFit.cover)
+                      : CachedNetworkImage(
+                          imageUrl: widget.user.profileImageUrl,
 
-                        // Loading image
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                          // Loading image
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
 
-                        // Loaded image
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+                          // Loaded image
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
+
+                          // Error in loading image
+                          errorWidget: (context, url, error) {
+                            print("Cached image: $url, $error");
+
+                            return Icon(
+                              Icons.person,
+                              size: 72,
+                              color: theme.colorScheme.primary,
+                            );
+                          },
                         ),
-
-                        // Error in loading image
-                        errorWidget: (context, url, error) {
-                          print("Cached image: $url, $error");
-
-                          return Icon(
-                            Icons.person,
-                            size: 72,
-                            color: theme.colorScheme.primary,
-                          );
-                        },
-                      ),
+                ),
               ),
-            ),
 
-            // Pick Image Button
-            Center(
-              child: MaterialButton(
-                onPressed: pickImage,
-                color: Colors.blue,
-                child: Text("Pick Image"),
+              // Pick Image Button
+              Center(
+                child: MaterialButton(
+                  onPressed: pickImage,
+                  color: Colors.blue,
+                  child: Text("Pick Image"),
+                ),
               ),
-            ),
 
-            // Bio
-            const Text("Bio"),
+              const SizedBox(height: 10),
 
-            const SizedBox(height: 10),
-
-            FancyTextField(
-              controller: bioTextController,
-              hintText: "Enter your bio here",
-              obscureText: false,
-            ),
-          ],
+              // Bio
+              FancyTextField(
+                controller: bioTextController,
+                hintText: "Enter your bio here",
+                obscureText: false,
+              ),
+            ],
+          ),
         ),
       ),
     );

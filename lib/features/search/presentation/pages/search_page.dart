@@ -59,28 +59,43 @@ class _SearchPageState extends State<SearchPage> {
                 itemBuilder: (context, index) {
                   final user = searchState.users[index];
                   return Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(5),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: user!.profileImageUrl,
-                            height: 40,
-                            width: 40,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: user!.profileImageUrl,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.person),
+                            ),
+
+                            Text(
                               user.name,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
