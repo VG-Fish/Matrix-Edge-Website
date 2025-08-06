@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/auth/domain/entities/user.dart';
 import 'package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:matrix_edge_website/features/home/presentation/components/post_tile.dart';
+import 'package:matrix_edge_website/features/post/presentation/cubits/post_cubit.dart';
+import 'package:matrix_edge_website/features/post/presentation/cubits/post_states.dart';
 import 'package:matrix_edge_website/features/profile/presentation/components/bio_box.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/profile_states.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart';
@@ -22,6 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   late final userProfileCubit = context.read<UserProfileCubit>();
 
   late MatrixEdgeUser? currentUser = authCubit.currentUser;
+
+  int postCount = 0;
 
   @override
   void initState() {
@@ -56,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
 
-            body: Column(
+            body: ListView(
               children: [
                 // Email
                 Center(
@@ -129,7 +134,33 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                BlocBuilder<PostCubit, PostStates>(
+                  builder: (context, postState) {
+                    if (postState is PostsLoaded) {
+                      final userPosts = postState.posts
+                          .where((post) => post.userId == widget.uid)
+                          .toList();
+                      postCount = userPosts.length;
+                      return ListView.builder(
+                        itemCount: postCount,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final post = userPosts[index];
+                          return PostTile(
+                            post: post,
+                            onDeletePressed: () =>
+                                context.read<PostCubit>().deletePost(post.id),
+                          );
+                        },
+                      );
+                    } else if (postState is PostsLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      return const Center(child: Text("No posts found."));
+                    }
+                  },
+                ),
               ],
             ),
           );
