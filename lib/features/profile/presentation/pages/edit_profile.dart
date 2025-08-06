@@ -9,6 +9,7 @@ import 'package:matrix_edge_website/features/auth/presentation/components/fancy_
 import 'package:matrix_edge_website/features/profile/domain/entities/user_profile.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/profile_states.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart';
+import 'package:matrix_edge_website/responsive/constrained_scaffold.dart';
 
 class EditProfilePage extends StatefulWidget {
   final UserProfile user;
@@ -79,7 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget buildEditPage({double uploadProgress = 0.0}) {
     var theme = Theme.of(context);
 
-    return Scaffold(
+    return ConstrainedScaffold(
       appBar: AppBar(
         title: const Text("Edit Profile"),
         foregroundColor: theme.colorScheme.primary,

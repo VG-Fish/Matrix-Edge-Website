@@ -10,6 +10,7 @@ import 'package:matrix_edge_website/features/profile/presentation/components/bio
 import 'package:matrix_edge_website/features/profile/presentation/cubit/profile_states.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart';
 import 'package:matrix_edge_website/features/profile/presentation/pages/edit_profile.dart';
+import 'package:matrix_edge_website/responsive/constrained_scaffold.dart';
 
 class ProfilePage extends StatefulWidget {
   final String uid;
@@ -43,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
         if (userProfileState is UserProfileLoaded) {
           final user = userProfileState.userProfile;
 
-          return Scaffold(
+          return ConstrainedScaffold(
             appBar: AppBar(
               title: Text(user.email),
               foregroundColor: theme.colorScheme.primary,

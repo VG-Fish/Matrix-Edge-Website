@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/auth/presentation/components/basic_button.dart';
 import 'package:matrix_edge_website/features/auth/presentation/components/fancy_text_field.dart';
 import 'package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:matrix_edge_website/responsive/constrained_scaffold.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? togglePages;
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ConstrainedScaffold(
       body: SafeArea(
         child: Center(
           child: Padding(

@@ -11,6 +11,7 @@ import 'package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit
 import 'package:matrix_edge_website/features/post/domain/entities/post.dart';
 import 'package:matrix_edge_website/features/post/presentation/cubits/post_cubit.dart';
 import 'package:matrix_edge_website/features/post/presentation/cubits/post_states.dart';
+import 'package:matrix_edge_website/responsive/constrained_scaffold.dart';
 
 class UploadPostsPage extends StatefulWidget {
   const UploadPostsPage({super.key});
@@ -98,7 +99,7 @@ class _UploadPostsPageState extends State<UploadPostsPage> {
   }
 
   Widget buildUploadPage() {
-    return Scaffold(
+    return ConstrainedScaffold(
       appBar: AppBar(
         title: const Text("Create Post"),
         foregroundColor: Theme.of(context).colorScheme.primary,

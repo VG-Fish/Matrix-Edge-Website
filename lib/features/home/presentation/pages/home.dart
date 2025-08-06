@@ -5,6 +5,7 @@ import 'package:matrix_edge_website/features/home/presentation/components/post_t
 import 'package:matrix_edge_website/features/post/presentation/cubits/post_cubit.dart';
 import 'package:matrix_edge_website/features/post/presentation/cubits/post_states.dart';
 import 'package:matrix_edge_website/features/post/presentation/pages/upload_posts_page.dart';
+import 'package:matrix_edge_website/responsive/constrained_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ConstrainedScaffold(
       appBar: AppBar(
         title: const Text("Home Page"),
         foregroundColor: Theme.of(context).colorScheme.primary,
