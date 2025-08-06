@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:matrix_edge_website/features/home/presentation/components/homepage_drawer_tile.dart';
 import 'package:matrix_edge_website/features/profile/presentation/pages/profile.dart';
+import 'package:matrix_edge_website/features/search/presentation/pages/search_page.dart';
 
 class HomepageDrawer extends StatelessWidget {
   const HomepageDrawer({super.key});
@@ -50,7 +51,10 @@ class HomepageDrawer extends StatelessWidget {
               HomepageDrawerTile(
                 title: "Search",
                 icon: Icons.search,
-                onTap: () {},
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                ),
               ),
 
               // Settings tile

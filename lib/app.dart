@@ -9,6 +9,8 @@ import "package:matrix_edge_website/features/post/data/firebase_post_repo.dart";
 import "package:matrix_edge_website/features/post/presentation/cubits/post_cubit.dart";
 import "package:matrix_edge_website/features/profile/data/firebase_profile_repo.dart";
 import "package:matrix_edge_website/features/profile/presentation/cubit/user_profile_cubit.dart";
+import "package:matrix_edge_website/features/search/presentation/cubits/search_cubit.dart";
+import "package:matrix_edge_website/features/search/repositories/firebase_search_repo.dart";
 import "package:matrix_edge_website/features/storage/data/firebase_storage_repo.dart";
 import "package:matrix_edge_website/themes/light_mode.dart";
 
@@ -17,6 +19,7 @@ class MatrixEdgeApp extends StatelessWidget {
   final userProfileRepo = FirebaseUserProfileRepo();
   final storageRepo = FirebaseStorageRepo();
   final postsRepo = FirebasePostRepo();
+  final searchRepo = FirebaseSearchRepo();
 
   MatrixEdgeApp({super.key});
 
@@ -38,6 +41,10 @@ class MatrixEdgeApp extends StatelessWidget {
         BlocProvider<PostCubit>(
           create: (context) =>
               PostCubit(postRepo: postsRepo, storageRepo: storageRepo),
+        ),
+
+        BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(searchRepo: searchRepo),
         ),
       ],
       child: MaterialApp(
