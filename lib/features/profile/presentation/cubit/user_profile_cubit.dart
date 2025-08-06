@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matrix_edge_website/features/profile/domain/entities/user_profile.dart';
 import 'package:matrix_edge_website/features/profile/domain/repo/user_profile_repo.dart';
 import 'package:matrix_edge_website/features/profile/presentation/cubit/profile_states.dart';
 import 'package:matrix_edge_website/features/storage/domain/storage_repo.dart';
@@ -25,6 +26,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     } catch (error) {
       emit(UserProfileError("Error occurred: ${error.toString()}"));
     }
+  }
+
+  Future<UserProfile?> getUserProfile(String uid) async {
+    final user = await userProfileRepo.fetchUserProfile(uid);
+    return user;
   }
 
   Future<void> updateProfile({
