@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matrix_edge_website/features/auth/domain/entities/user.dart';
-import 'package:matrix_edge_website/features/auth/presentation/components/fancy_text_field.dart';
+import 'package:matrix_edge_website/features/auth/presentation/components/fancy_multiline_text_field.dart';
 import 'package:matrix_edge_website/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:matrix_edge_website/features/post/domain/entities/post.dart';
 import 'package:matrix_edge_website/features/post/presentation/cubits/post_cubit.dart';
@@ -107,8 +107,8 @@ class _UploadPostsPageState extends State<UploadPostsPage> {
         ],
       ),
       body: Center(
-        child: Column(
-          spacing: 10,
+        child: ListView(
+          padding: EdgeInsets.all(10),
           children: [
             // Image preview for web
             if (kIsWeb && webImage != null) Image.memory(webImage!),
@@ -117,6 +117,8 @@ class _UploadPostsPageState extends State<UploadPostsPage> {
             if (!kIsWeb && imagePickedFile != null)
               Image.file(File(imagePickedFile!.path!)),
 
+            const SizedBox(height: 10),
+
             // Image of document
             MaterialButton(
               onPressed: pickImage,
@@ -124,12 +126,16 @@ class _UploadPostsPageState extends State<UploadPostsPage> {
               child: const Text("Upload Image"),
             ),
 
+            const SizedBox(height: 10),
+
             // Information about the document
-            FancyTextField(
+            FancyMultilineTextField(
               controller: informationTextController,
               hintText: "Enter medical information here",
               obscureText: false,
             ),
+
+            const SizedBox(height: 10),
 
             // Cost of document
             TextField(
