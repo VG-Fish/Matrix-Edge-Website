@@ -138,8 +138,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           final post = userPosts[index];
                           return PostTile(
                             post: post,
-                            onDeletePressed: () =>
-                                context.read<PostCubit>().deletePost(post.id),
+                            onDeletePressed: () {
+                              var profileCubit = context.read<PostCubit>();
+                              profileCubit.deletePost(post.id);
+                              profileCubit.fetchAllPosts();
+                            },
                           );
                         },
                       );

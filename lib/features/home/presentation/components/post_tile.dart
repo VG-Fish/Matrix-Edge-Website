@@ -224,7 +224,15 @@ class _PostTileState extends State<PostTile> {
             onPressed: () => Navigator.of(context).pop(),
             child: Text("Cancel"),
           ),
-          TextButton(onPressed: widget.onDeletePressed, child: Text("Delete")),
+          TextButton(
+            onPressed: () {
+              if (widget.onDeletePressed != null) {
+                widget.onDeletePressed!();
+              }
+              Navigator.of(context).pop();
+            },
+            child: Text("Delete"),
+          ),
         ],
       ),
     );
