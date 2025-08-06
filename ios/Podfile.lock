@@ -1429,6 +1429,7 @@ PODS:
   - SDWebImage (5.21.1):
     - SDWebImage/Core (= 5.21.1)
   - SDWebImage/Core (5.21.1)
+  - ShowTime (2.5.3)
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
@@ -1497,6 +1498,7 @@ DEPENDENCIES:
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - ShowTime
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
 
@@ -1525,6 +1527,7 @@ SPEC REPOS:
     - nanopb
     - RecaptchaInterop
     - SDWebImage
+    - ShowTime
     - Stripe
     - StripeApplePay
     - StripeCore
@@ -1586,6 +1589,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
   SDWebImage: f29024626962457f3470184232766516dee8dfea
+  ShowTime: 06cc9dc79886274b21041fe19b79c9eff59b9714
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   Stripe: 8a03a78bfa16b197f9fac51e42670ac563b34388
   stripe_ios: 95bdf6ba58efd184fe1dfed194cd8692299d66ca
@@ -1598,6 +1602,6 @@ SPEC CHECKSUMS:
   StripeUICore: 17a4f3adb81ae05ab885e1b353022a430176eab1
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
 
-PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
+PODFILE CHECKSUM: 0905efc645ea8e86c350358b16c2f1bd63fdd720
 
 COCOAPODS: 1.16.2
