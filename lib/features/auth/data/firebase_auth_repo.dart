@@ -16,10 +16,15 @@ class FirebaseAuthRepo implements AuthRepo {
       UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
+      DocumentSnapshot userDoc = await firebaseFirestore
+          .collection("users")
+          .doc(userCredential.user!.uid)
+          .get();
+
       MatrixEdgeUser user = MatrixEdgeUser(
         uid: userCredential.user!.uid,
         email: email,
-        name: "",
+        name: userDoc["name"],
       );
 
       return user;
@@ -67,10 +72,20 @@ class FirebaseAuthRepo implements AuthRepo {
     if (firebaseUser == null) {
       return null;
     }
+
+    DocumentSnapshot userDoc = await firebaseFirestore
+        .collection("users")
+        .doc(firebaseUser.uid)
+        .get();
+
+    if (!userDoc.exists) {
+      return null;
+    }
+
     return MatrixEdgeUser(
       uid: firebaseUser.uid,
       email: firebaseUser.email!,
-      name: "",
+      name: userDoc["name"],
     );
   }
 }
